@@ -1,4 +1,4 @@
-module swfoster44/buffer
+module github.com/swfoster44/buffer
 
 go 1.22.4
 
