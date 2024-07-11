@@ -31,6 +31,10 @@ type Buffer[T any] struct {
 	data []T
 }
 
+func (b *Buffer[T]) Data(data []T) {
+	b.data = data
+}
+
 func (b *Buffer[T]) DataSlice(d []T) {
 	b.data = d
 }
