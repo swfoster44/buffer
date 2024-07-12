@@ -16,9 +16,10 @@ type Buffered[T any] interface {
 	PeekLeft() []T
 	PeekRight() []T
 	InBounds(i int)
-	DataSlice(d []T)
+	Data(d []T)
 	HasSpace(l int)
 	Copy() []T
+	DataSlice() []T
 }
 
 func NewByteBuffer(cap int) *Buffer[byte] {
@@ -35,8 +36,13 @@ func (b *Buffer[T]) Data(data []T) {
 	b.data = data
 }
 
-func (b *Buffer[T]) DataSlice(d []T) {
-	b.data = d
+func (b *Buffer[T]) DataSlice(i, j int) []T {
+	if b.InBounds(i) && b.InBounds(j) {
+
+		return b.data[i:j]
+	}
+
+	panic("out of bounds range")
 }
 
 func (b *Buffer[T]) HasSpace(l int) bool {
@@ -97,6 +103,10 @@ func (b *Buffer[T]) PopLeft() (T, error) {
 	t := new(T)
 	return *t, newBuffEmptyError("PopLeft()")
 
+}
+
+func (b *Buffer[T]) LastIndex() int {
+	return b.Len() - 1
 }
 
 func (b *Buffer[T]) Len() int {
