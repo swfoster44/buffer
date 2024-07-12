@@ -130,7 +130,7 @@ func (b *Buffer[T]) PeekLeft(n int) ([]T, error) {
 }
 
 func (b *Buffer[T]) PeekRight(n int) ([]T, error) {
-	i := 1
+	i := 0
 	j := i + n
 	if b.InBounds(j) {
 		return b.data[i:j], nil
